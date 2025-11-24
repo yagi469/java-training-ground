@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.week1.dto.UserRegistrationRequest;
 import com.example.week1.dto.UserResponse;
+import com.example.week1.service.UserService;
 
 import jakarta.validation.Valid;
 
@@ -35,13 +35,17 @@ import jakarta.validation.Valid;
 @RequiredArgsConstructor
 public class UserController {
 
+    private final UserService userService;
+
     @PostMapping
     public ResponseEntity<Void> registerUser(@RequestBody @Valid UserRegistrationRequest request) {
-        return ResponseEntity.created(Objects.requireNonNull(URI.create("/users/1"))).build();
+        UserResponse user = userService.createUser(request);
+        URI location = Objects.requireNonNull(URI.create("/users/" + user.id()));
+        return ResponseEntity.created(location).build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable Long id) {
-        return ResponseEntity.ok(new UserResponse(1L, "user"));
+        return ResponseEntity.ok(userService.getUser(id));
     }
 }
