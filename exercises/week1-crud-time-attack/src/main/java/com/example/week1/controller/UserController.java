@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 
 // Drill 1 - Implement User Registration API Shell
 // Requirements:
@@ -14,8 +15,6 @@ import jakarta.validation.Valid;
 // 2. POST /users method
 // 3. @Valid @RequestBody for input
 // 4. Return ResponseEntity<Void> (or appropriate type)
-
-import jakarta.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/users")
