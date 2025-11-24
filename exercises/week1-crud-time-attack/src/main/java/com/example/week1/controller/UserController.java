@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.week1.dto.UserRegistrationRequest;
+import com.example.week1.dto.UserResponse;
+
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 
 // Drill 3 - Registration & Retrieval (Target: 5 mins)
 // Requirements:
@@ -41,17 +43,5 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable Long id) {
         return ResponseEntity.ok(new UserResponse(1L, "user"));
-    }
-
-    // Define UserRegistrationRequest (username, password)
-    public record UserRegistrationRequest(
-            @NotBlank String username,
-            @NotBlank String password) {
-    }
-
-    // Define UserResponse (id, username)
-    public record UserResponse(
-            Long id,
-            String username) {
     }
 }
