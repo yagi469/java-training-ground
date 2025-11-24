@@ -5,21 +5,21 @@ import java.util.Optional;
 public class OptionalDrill {
 
     public String getNameOrDefault(Optional<User> user, String defaultName) {
-        // TODO: Implement using orElse
-        return null;
+        return user.map(User::getName).orElse(defaultName);
     }
 
     public String getUpperCasedNameOrUnknown(Optional<User> user) {
-        // TODO: Implement using map and orElse
-        return null;
+        return user.map(User::getName)
+                .map(String::toUpperCase)
+                .orElse("UNKNOWN");
     }
 
     public String getDepartmentOrThrow(Optional<User> user) {
-        // TODO: Implement using map and orElseThrow
-        return null;
+        return user.map(User::getDepartment)
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     public void printNameIfPresent(Optional<User> user) {
-        // TODO: Implement using ifPresent
+        user.map(User::getName).ifPresent(System.out::println);
     }
 }
