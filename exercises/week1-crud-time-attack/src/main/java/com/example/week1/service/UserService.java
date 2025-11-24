@@ -6,22 +6,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.week1.dto.UserRegistrationRequest;
 import com.example.week1.dto.UserResponse;
 import com.example.week1.entity.User;
+import com.example.week1.exception.ResourceNotFoundException;
 import com.example.week1.repository.UserRepository;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-// TODO: Drill 8 - Service with Repository (Target: 5 mins)
+// TODO: Drill 11 - Update Service to use Custom Exception (Target: 3 mins)
 // Requirements:
-// 1. Inject UserRepository (private final UserRepository repository;)
-// 2. createUser: 
-//    - Create User entity from request
-//    - Save to repository
-//    - Convert saved entity to UserResponse
-// 3. getUser:
-//    - Use repository.findById(id)
-//    - Use .orElseThrow(() -> new RuntimeException("User not found"))
-//    - Convert entity to UserResponse
+// 1. Import ResourceNotFoundException
+// 2. Replace RuntimeException with ResourceNotFoundException in getUser method
+// 3. Include the id in the error message: "User not found with id: " + id
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +35,6 @@ public class UserService {
     public UserResponse getUser(@NonNull Long id) {
         return repository.findById(id)
                 .map(user -> new UserResponse(user.getId(), user.getUsername()))
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 }
