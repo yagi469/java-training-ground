@@ -1,0 +1,15 @@
+com\example\week1\dto\UserDeleteResponse.class
+com\example\week1\aspect\ExecutionTimeLoggerAspect.class
+com\example\week1\controller\UserController.class
+com\example\week1\dto\UserResponse.class
+com\example\week1\validation\EmailValidator.class
+com\example\week1\service\UserService.class
+com\example\week1\dto\UserUpdateRequest.class
+com\example\week1\entity\User.class
+com\example\week1\validation\ValidEmail.class
+com\example\week1\dto\UserRegistrationRequest.class
+com\example\week1\exception\ErrorResponse.class
+com\example\week1\exception\GlobalExceptionHandler.class
+com\example\week1\exception\ResourceNotFoundException.class
+com\example\week1\repository\UserRepository.class
+com\example\week1\Week1Application.class

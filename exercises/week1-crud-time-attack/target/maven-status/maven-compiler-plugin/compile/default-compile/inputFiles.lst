@@ -1,0 +1,14 @@
+C:\Users\user\Dev\java-training-ground\exercises\week1-crud-time-attack\src\main\java\com\example\week1\entity\User.java
+C:\Users\user\Dev\java-training-ground\exercises\week1-crud-time-attack\src\main\java\com\example\week1\dto\UserDeleteResponse.java
+C:\Users\user\Dev\java-training-ground\exercises\week1-crud-time-attack\src\main\java\com\example\week1\dto\UserResponse.java
+C:\Users\user\Dev\java-training-ground\exercises\week1-crud-time-attack\src\main\java\com\example\week1\aspect\ExecutionTimeLoggerAspect.java
+C:\Users\user\Dev\java-training-ground\exercises\week1-crud-time-attack\src\main\java\com\example\week1\exception\GlobalExceptionHandler.java
+C:\Users\user\Dev\java-training-ground\exercises\week1-crud-time-attack\src\main\java\com\example\week1\repository\UserRepository.java
+C:\Users\user\Dev\java-training-ground\exercises\week1-crud-time-attack\src\main\java\com\example\week1\validation\EmailValidator.java
+C:\Users\user\Dev\java-training-ground\exercises\week1-crud-time-attack\src\main\java\com\example\week1\dto\UserRegistrationRequest.java
+C:\Users\user\Dev\java-training-ground\exercises\week1-crud-time-attack\src\main\java\com\example\week1\exception\ResourceNotFoundException.java
+C:\Users\user\Dev\java-training-ground\exercises\week1-crud-time-attack\src\main\java\com\example\week1\service\UserService.java
+C:\Users\user\Dev\java-training-ground\exercises\week1-crud-time-attack\src\main\java\com\example\week1\Week1Application.java
+C:\Users\user\Dev\java-training-ground\exercises\week1-crud-time-attack\src\main\java\com\example\week1\controller\UserController.java
+C:\Users\user\Dev\java-training-ground\exercises\week1-crud-time-attack\src\main\java\com\example\week1\dto\UserUpdateRequest.java
+C:\Users\user\Dev\java-training-ground\exercises\week1-crud-time-attack\src\main\java\com\example\week1\validation\ValidEmail.java
