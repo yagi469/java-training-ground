@@ -16,7 +16,7 @@ import com.example.week1.repository.UserRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-// TODO: Drill 11 - Update Service to use Custom Exception (Target: 3 mins)
+// Drill 11 - Update Service to use Custom Exception (Target: 3 mins)
 // Requirements:
 // 1. Import ResourceNotFoundException
 // 2. Replace RuntimeException with ResourceNotFoundException in getUser method

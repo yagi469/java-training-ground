@@ -1,6 +1,6 @@
 package com.example.week1.exception;
 
-// TODO: Drill 9 - Custom Exception Class (Target: 2 mins)
+// Drill 9 - Custom Exception Class (Target: 2 mins)
 // Requirements:
 // 1. Extend RuntimeException
 // 2. Add constructor that takes a message (String)

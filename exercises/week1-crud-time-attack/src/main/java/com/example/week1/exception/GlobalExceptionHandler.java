@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-// TODO: Drill 10 - Global Exception Handler (Target: 5 mins)
+// Drill 10 - Global Exception Handler (Target: 5 mins)
 // Requirements:
 // 1. Class: @RestControllerAdvice
 // 2. Method: @ExceptionHandler(ResourceNotFoundException.class)

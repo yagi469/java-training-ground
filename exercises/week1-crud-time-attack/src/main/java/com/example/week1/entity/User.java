@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// TODO: Drill 6 - Entity Definition (Target: 3 mins)
+// sDrill 6 - Entity Definition (Target: 3 mins)
 // Requirements:
 // 1. Class: @Entity, @Table(name = "users")
 // 2. Fields:
