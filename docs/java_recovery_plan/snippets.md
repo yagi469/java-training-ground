@@ -67,3 +67,50 @@ public class ResourceService {
     *   Class level: `@Transactional(readOnly = true)` (Safety first! Prevents accidental writes).
     *   Write methods: `@Transactional` (Override to allow writes).
 3.  **Exception Handling**: Use `.orElseThrow()` for clean 404 handling.
+
+## Entity Pattern
+
+```java
+@Entity
+@Table(name = "resources")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Resource {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String name;
+
+    // Constructor for creation (without id)
+    public Resource(String name) {
+        this.name = name;
+    }
+}
+```
+
+### Key Points
+1.  **Annotations**: `@Entity`, `@Table(name = "...")`.
+2.  **ID**: `@Id`, `@GeneratedValue(strategy = GenerationType.IDENTITY)` for auto-increment.
+3.  **Lombok**: `@Getter`, `@NoArgsConstructor`, `@AllArgsConstructor` for boilerplate reduction.
+4.  **Custom Constructor**: Add a constructor without `id` for creating new entities.
+
+## Repository Pattern
+
+```java
+public interface ResourceRepository extends JpaRepository<Resource, Long> {
+    // Spring Data JPA generates implementations automatically
+    
+    // Custom query examples (optional):
+    // Optional<Resource> findByName(String name);
+    // List<Resource> findByNameContaining(String keyword);
+}
+```
+
+### Key Points
+1.  **Extends JpaRepository**: `JpaRepository<Entity, ID>` provides CRUD methods automatically.
+2.  **No @Repository needed**: Spring detects it automatically.
+3.  **Method naming convention**: Spring generates queries from method names (e.g., `findByName`).
