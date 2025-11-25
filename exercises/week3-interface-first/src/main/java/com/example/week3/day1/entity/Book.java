@@ -16,4 +16,7 @@ public class Book {
     private String author;
     private String isbn;
     private int publishedYear;
+
+    // 在庫数を追加
+    private Integer stockQuantity;
 }

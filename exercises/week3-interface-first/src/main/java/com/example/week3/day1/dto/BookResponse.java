@@ -11,4 +11,5 @@ public class BookResponse {
     private String author;
     private String isbn;
     private int publishedYear;
+    private Integer stockQuantity; // 在庫数を追加
 }

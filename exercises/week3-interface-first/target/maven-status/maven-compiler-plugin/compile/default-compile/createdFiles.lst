@@ -3,5 +3,6 @@ com\example\week3\day1\dto\BookResponse.class
 com\example\week3\day1\repository\BookRepository.class
 com\example\week3\day1\dto\BookRequest.class
 com\example\week3\day1\controller\BookController.class
+com\example\week3\day1\dto\BookSearchRequest.class
 com\example\week3\day1\service\BookService.class
 com\example\week3\Week3Application.class
