@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.example.week2.knockout.StreamKnockout03Test
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.221 s -- in com.example.week2.knockout.StreamKnockout03Test
