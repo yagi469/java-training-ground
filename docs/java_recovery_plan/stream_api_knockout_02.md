@@ -41,7 +41,7 @@ public class Project {
 - **メソッド名**: `maxSalaryByDepartment`
 - **引数**: `List<Employee> employees`
 - **戻り値**: `Map<String, Double>`
-- **ヒント**: `groupingBy` + `mapping` + `maxBy` で給与だけ抽出
+- **ヒント**: `Collectors.toMap` の第3引数（マージ関数）を使用して、高い方の値を採用する (`(s1, s2) -> Math.max(s1, s2)`)
 
 #### 問題13: 名前に特定の文字列を含む従業員をフィルタ
 - **メソッド名**: `findEmployeesWithNameContaining`

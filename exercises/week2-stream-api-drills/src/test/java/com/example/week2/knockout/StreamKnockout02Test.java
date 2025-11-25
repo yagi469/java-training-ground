@@ -110,7 +110,7 @@ class StreamKnockout02Test {
                 new Project(2L, "Project Beta", List.of(1L, 2L, 4L)),
                 new Project(3L, "Project Gamma", List.of(3L, 5L, 6L)));
         List<Employee> result = knockout.findEmployeesInMultipleProjects(employees, projects);
-        assertEquals(4, result.size()); // Alice(1), Charlie(3), Eve(5) appear multiple times
+        assertEquals(3, result.size()); // Alice(1), Charlie(3), Eve(5) appear multiple times
         assertTrue(result.stream().anyMatch(e -> e.getName().equals("Alice")));
         assertTrue(result.stream().anyMatch(e -> e.getName().equals("Charlie")));
         assertTrue(result.stream().anyMatch(e -> e.getName().equals("Eve")));
