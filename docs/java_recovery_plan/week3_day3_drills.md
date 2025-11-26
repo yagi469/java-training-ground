@@ -230,6 +230,180 @@ class BookControllerTest {
 }
 ```
 
+### BookControllerTest の実装例
+
+#### 例1: getAllBooks_GET_200とリストが返る()
+
+```java
+@Test
+void getAllBooks_GET_200とリストが返る() throws Exception {
+    // given
+    List<BookResponse> books = Arrays.asList(
+        new BookResponse(1L, "Java入門", "山田太郎", "123-456", 2020, 10),
+        new BookResponse(2L, "Spring Boot", "鈴木花子", "789-012", 2021, 20)
+    );
+    when(bookService.getAllBooks()).thenReturn(books);
+    
+    // when & then
+    mockMvc.perform(get("/books"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").isArray())
+        .andExpect(jsonPath("$[0].title").value("Java入門"))
+        .andExpect(jsonPath("$[1].title").value("Spring Boot"));
+}
+```
+
+#### 例2: getBookById_存在するID_200と書籍情報が返る()
+
+```java
+@Test
+void getBookById_存在するID_200と書籍情報が返る() throws Exception {
+    // given
+    BookResponse book = new BookResponse(1L, "Java入門", "山田太郎", "123-456", 2020, 10);
+    when(bookService.getBookById(1L)).thenReturn(book);
+    
+    // when & then
+    mockMvc.perform(get("/books/1"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(1))
+        .andExpect(jsonPath("$.title").value("Java入門"))
+        .andExpect(jsonPath("$.author").value("山田太郎"));
+}
+```
+
+#### 例3: createBook_正しいリクエスト_201が返る()
+
+```java
+@Test
+void createBook_正しいリクエスト_201が返る() throws Exception {
+    // given
+    BookRequest request = new BookRequest();
+    request.setTitle("新しい本");
+    request.setAuthor("新人著者");
+    request.setIsbn("999-888");
+    request.setPublishedYear(2024);
+    request.setStockQuantity(50);
+    
+    BookResponse response = new BookResponse(1L, "新しい本", "新人著者", "999-888", 2024, 50);
+    when(bookService.createBook(any(BookRequest.class))).thenReturn(response);
+    
+    // when & then
+    mockMvc.perform(post("/books")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.title").value("新しい本"))
+        .andExpect(jsonPath("$.author").value("新人著者"));
+}
+```
+
+#### 例4: searchByAuthor_著者名を指定_該当書籍が返る()
+
+```java
+@Test
+void searchByAuthor_著者名を指定_該当書籍が返る() throws Exception {
+    // given
+    List<BookResponse> books = Arrays.asList(
+        new BookResponse(1L, "Java本", "山田太郎", "111-111", 2020, 10),
+        new BookResponse(2L, "Spring本", "山田太郎", "222-222", 2021, 20)
+    );
+    when(bookService.searchByAuthor("山田")).thenReturn(books);
+    
+    // when & then
+    mockMvc.perform(get("/books/search/author").param("author", "山田"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").isArray())
+        .andExpect(jsonPath("$[0].author").value("山田太郎"))
+        .andExpect(jsonPath("$[1].author").value("山田太郎"));
+}
+```
+
+#### 例5: updateBook_存在するID_200と更新された書籍が返る()
+
+```java
+@Test
+void updateBook_存在するID_200と更新された書籍が返る() throws Exception {
+    // given
+    BookRequest request = new BookRequest();
+    request.setTitle("更新された本");
+    request.setAuthor("更新著者");
+    request.setIsbn("111-222");
+    request.setPublishedYear(2023);
+    request.setStockQuantity(30);
+    
+    BookResponse response = new BookResponse(1L, "更新された本", "更新著者", "111-222", 2023, 30);
+    when(bookService.updateBook(eq(1L), any(BookRequest.class))).thenReturn(response);
+    
+    // when & then
+    mockMvc.perform(put("/books/1")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.title").value("更新された本"));
+}
+```
+
+#### 例6: deleteBook_存在するID_204が返る()
+
+```java
+@Test
+void deleteBook_存在するID_204が返る() throws Exception {
+    // when & then
+    mockMvc.perform(delete("/books/1"))
+        .andExpect(status().isNoContent());
+}
+```
+
+### MockMvc の主要メソッド
+
+#### 1. HTTPリクエストの作成
+- `get("/path")` - GETリクエスト
+- `post("/path")` - POSTリクエスト
+- `put("/path")` - PUTリクエスト
+- `patch("/path")` - PATCHリクエスト
+- `delete("/path")` - DELETEリクエスト
+
+#### 2. リクエストパラメータの設定
+- `.contentType(MediaType.APPLICATION_JSON)` - Content-Typeヘッダー
+- `.content("JSON文字列")` - リクエストボディ
+- `.param("key", "value")` - クエリパラメータ
+- `.header("key", "value")` - カスタムヘッダー
+
+#### 3. レスポンスの検証
+- `.andExpect(status().isOk())` - 200 OK
+- `.andExpect(status().isCreated())` - 201 Created
+- `.andExpect(status().isNoContent())` - 204 No Content
+- `.andExpect(status().isBadRequest())` - 400 Bad Request
+- `.andExpect(status().isNotFound())` - 404 Not Found
+
+#### 4. JSONパスでの検証
+- `.andExpect(jsonPath("$.title").value("期待値"))` - 単一の値
+- `.andExpect(jsonPath("$").isArray())` - 配列であることを確認
+- `.andExpect(jsonPath("$[0].title").value("期待値"))` - 配列の要素
+- `.andExpect(jsonPath("$[*].author").value(hasItem("著者名")))` - 配列内の検索
+
+### ObjectMapper の使い方
+
+リクエストボディをJSON文字列に変換する際に使用：
+
+```java
+BookRequest request = new BookRequest();
+request.setTitle("タイトル");
+// ... 他のフィールドも設定
+
+String json = objectMapper.writeValueAsString(request);
+// => {"title":"タイトル","author":null,...}
+```
+
+これを `.content()` に渡します：
+
+```java
+mockMvc.perform(post("/books")
+    .contentType(MediaType.APPLICATION_JSON)
+    .content(objectMapper.writeValueAsString(request)))
+```
+
+
 ## チャレンジ課題
 
 余裕があれば、以下のテストも書いてみてください：
