@@ -67,6 +67,43 @@ public class GoodBookService {
                 .collect(Collectors.toList());
     }
 
+    // 書籍更新メソッド
+    public BookResponse updateBook(@NonNull Long id, BookRequest request) {
+        // ヒント:
+        // Book book = bookRepository.findById(id)
+        // .orElseThrow(() -> new BookNotFoundException("Book not found with id: " +
+        // id));
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException("Book not found with id: " + id));
+        // book.setTitle(request.getTitle());
+        book.setTitle(request.getTitle());
+        // book.setAuthor(request.getAuthor());
+        book.setAuthor(request.getAuthor());
+        // book.setIsbn(request.getIsbn());
+        book.setIsbn(request.getIsbn());
+        // book.setPublishedYear(request.getPublishedYear());
+        book.setPublishedYear(request.getPublishedYear());
+        // book.setStockQuantity(request.getStockQuantity());
+        book.setStockQuantity(request.getStockQuantity());
+        // Book updatedBook = bookRepository.save(book);
+        Book updatedBook = bookRepository.save(book);
+        // return toResponse(updatedBook);
+        return toResponse(updatedBook);
+    }
+
+    // 書籍削除メソッド
+    public void deleteBook(@NonNull Long id) {
+        // ヒント:
+        // if (!bookRepository.existsById(id)) {
+        // throw new BookNotFoundException("Book not found with id: " + id);
+        // }
+        if (!bookRepository.existsById(id)) {
+            throw new BookNotFoundException("Book not found with id: " + id);
+        }
+        // bookRepository.deleteById(id);
+        bookRepository.deleteById(id);
+    }
+
     // 条件チェック用のヘルパーメソッド
     private boolean matchesAuthor(Book book, String author) {
         // ヒント: return author == null || book.getAuthor().contains(author);

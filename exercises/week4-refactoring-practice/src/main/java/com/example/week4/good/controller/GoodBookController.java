@@ -55,4 +55,24 @@ public class GoodBookController {
     // ヒント: return ResponseEntity.ok(books);
     return ResponseEntity.ok(books);
   }
+
+  // 書籍更新エンドポイント
+  @PutMapping("/{id}")
+  public ResponseEntity<BookResponse> updateBook(
+      @PathVariable Long id,
+      @Valid @RequestBody BookRequest request) {
+    // ヒント: BookResponse updatedBook = bookService.updateBook(id, request);
+    BookResponse updatedBook = bookService.updateBook(id, request);
+    // ヒント: return ResponseEntity.ok(updatedBook);
+    return ResponseEntity.ok(updatedBook);
+  }
+
+  // 書籍削除エンドポイント
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
+    // ヒント: bookService.deleteBook(id);
+    bookService.deleteBook(id);
+    // ヒント: return ResponseEntity.noContent().build(); // 204 No Content
+    return ResponseEntity.noContent().build();
+  }
 }
