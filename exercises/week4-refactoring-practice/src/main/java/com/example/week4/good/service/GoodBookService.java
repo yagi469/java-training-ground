@@ -44,7 +44,6 @@ public class GoodBookService {
         @NonNull
         Book book = toEntity(request);
         // Book savedBook = bookRepository.save(book);
-        @SuppressWarnings("null")
         Book savedBook = bookRepository.save(book);
         // return toResponse(savedBook);
         return toResponse(savedBook);

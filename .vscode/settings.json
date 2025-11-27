@@ -1,11 +1,13 @@
 {
-    "java.compile.nullAnalysis.mode": "automatic",
-    "java.configuration.updateBuildConfiguration": "interactive",
-    "java.import.maven.enabled": true,
-    "java.configuration.maven.projectReferencePaths": [
-        "exercises/week1-crud-time-attack",
-        "exercises/week2-stream-api-drills",
-        "exercises/week3-interface-first",
-        "solutions/week1-crud-time-attack"
-    ]
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "java.import.maven.enabled": true,
+  "java.configuration.maven.projectReferencePaths": [
+    "exercises/week1-crud-time-attack",
+    "exercises/week2-stream-api-drills",
+    "exercises/week3-interface-first",
+    "exercises/week6-blog-api",
+    "solutions/week1-crud-time-attack"
+  ],
+  "java.project.sourcePaths": []
 }

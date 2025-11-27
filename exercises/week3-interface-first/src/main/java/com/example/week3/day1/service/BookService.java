@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@SuppressWarnings("null")
 public class BookService {
 
     private final BookRepository bookRepository;
@@ -85,7 +84,7 @@ public class BookService {
                     .map(this::toResponse);
         }
 
-        // TODO: 他の検索パターンも実装可能
+        // 他の検索パターンも実装可能
         // 今回はシンプルに全件取得
         return bookRepository.findAll(pageable)
                 .map(this::toResponse);

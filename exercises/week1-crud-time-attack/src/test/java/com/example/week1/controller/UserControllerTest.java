@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -22,7 +23,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(UserController.class)
-@SuppressWarnings("null")
 class UserControllerTest {
 
     @Autowired
@@ -42,8 +42,8 @@ class UserControllerTest {
         when(userService.createUser(any(UserRegistrationRequest.class))).thenReturn(response);
 
         mockMvc.perform(post("/users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                .contentType(Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(Objects.requireNonNull(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location", "/users/1"));
     }
@@ -84,8 +84,8 @@ class UserControllerTest {
         when(userService.updateUser(eq(1L), any(UserUpdateRequest.class))).thenReturn(response);
 
         mockMvc.perform(put("/users/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                .contentType(Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(Objects.requireNonNull(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username").value("updateduser"))
                 .andExpect(jsonPath("$.email").value("updated@example.com"));

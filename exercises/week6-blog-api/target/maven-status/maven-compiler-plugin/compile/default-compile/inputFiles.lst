@@ -7,7 +7,10 @@ C:\Users\user\Dev\java-training-ground\exercises\week6-blog-api\src\main\java\co
 C:\Users\user\Dev\java-training-ground\exercises\week6-blog-api\src\main\java\com\example\week6\blog\dto\UserResponse.java
 C:\Users\user\Dev\java-training-ground\exercises\week6-blog-api\src\main\java\com\example\week6\blog\entity\Category.java
 C:\Users\user\Dev\java-training-ground\exercises\week6-blog-api\src\main\java\com\example\week6\blog\dto\UserRequest.java
+C:\Users\user\Dev\java-training-ground\exercises\week6-blog-api\src\main\java\com\example\week6\blog\service\PostService.java
 C:\Users\user\Dev\java-training-ground\exercises\week6-blog-api\src\main\java\com\example\week6\blog\entity\User.java
 C:\Users\user\Dev\java-training-ground\exercises\week6-blog-api\src\main\java\com\example\week6\blog\dto\CategoryResponse.java
 C:\Users\user\Dev\java-training-ground\exercises\week6-blog-api\src\main\java\com\example\week6\blog\repository\CategoryRepository.java
+C:\Users\user\Dev\java-training-ground\exercises\week6-blog-api\src\main\java\com\example\week6\blog\service\CategoryService.java
+C:\Users\user\Dev\java-training-ground\exercises\week6-blog-api\src\main\java\com\example\week6\blog\service\UserService.java
 C:\Users\user\Dev\java-training-ground\exercises\week6-blog-api\src\main\java\com\example\week6\blog\entity\Post.java
