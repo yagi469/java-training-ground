@@ -21,25 +21,25 @@
 - [ ] `CategoryRequest.java`, `CategoryResponse.java`
 
 ### Repository層
-- [ ] `UserRepository.java`
-- [ ] `PostRepository.java`
-- [ ] `CategoryRepository.java`
+- [x] `UserRepository.java`
+- [x] `PostRepository.java`
+- [x] `CategoryRepository.java`
 
 ### Service層（Week 5スニペット活用）
-- [ ] `UserService.java` - getAllUsers, getUserById, createUser, updateUser, deleteUser
-- [ ] `PostService.java` - getAllPosts, getPostById, createPost, updatePost, deletePost
-- [ ] `CategoryService.java` - getAllCategories, getCategoryById, createCategory
+- [x] `UserService.java` - getAllUsers, getUserById, createUser, updateUser, deleteUser
+- [x] `PostService.java` - getAllPosts, getPostById, createPost, updatePost, deletePost
+- [x] `CategoryService.java` - getAllCategories, getCategoryById, createCategory
 
 ### Controller層
-- [ ] `UserController.java` - 全エンドポイント
-- [ ] `PostController.java` - 全エンドポイント
-- [ ] `CategoryController.java` - 全エンドポイント
+- [x] `UserController.java` - 全エンドポイント
+- [x] `PostController.java` - 全エンドポイント
+- [x] `CategoryController.java` - 全エンドポイント
 
 ### Exception層
-- [ ] `UserNotFoundException.java`
-- [ ] `PostNotFoundException.java`
-- [ ] `CategoryNotFoundException.java`
-- [ ] `GlobalExceptionHandler.java`
+- [x] `UserNotFoundException.java`
+- [x] `PostNotFoundException.java`
+- [x] `CategoryNotFoundException.java`
+- [x] `GlobalExceptionHandler.java`
 
 ### テスト（@DataJpaTest）
 - [ ] `UserRepositoryTest.java`
@@ -47,7 +47,7 @@
 - [ ] `CategoryRepositoryTest.java`
 
 ### 動作確認
-- [ ] `mvnw spring-boot:run` 起動確認
+- [x] `mvnw spring-boot:run` 起動確認
 - [ ] Postmanで各CRUD操作確認
 - [ ] テスト実行 `mvnw test`
 
