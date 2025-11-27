@@ -1,0 +1,8 @@
+C:\Users\user\Dev\java-training-ground\exercises\week4-refactoring-practice\src\main\java\com\example\week4\common\entity\Book.java
+C:\Users\user\Dev\java-training-ground\exercises\week4-refactoring-practice\src\main\java\com\example\week4\common\exception\BookNotFoundException.java
+C:\Users\user\Dev\java-training-ground\exercises\week4-refactoring-practice\src\main\java\com\example\week4\Week4RefactoringPracticeApplication.java
+C:\Users\user\Dev\java-training-ground\exercises\week4-refactoring-practice\src\main\java\com\example\week4\good\service\GoodBookService.java
+C:\Users\user\Dev\java-training-ground\exercises\week4-refactoring-practice\src\main\java\com\example\week4\bad\service\BadBookService.java
+C:\Users\user\Dev\java-training-ground\exercises\week4-refactoring-practice\src\main\java\com\example\week4\common\dto\BookRequest.java
+C:\Users\user\Dev\java-training-ground\exercises\week4-refactoring-practice\src\main\java\com\example\week4\common\repository\BookRepository.java
+C:\Users\user\Dev\java-training-ground\exercises\week4-refactoring-practice\src\main\java\com\example\week4\common\dto\BookResponse.java

@@ -151,104 +151,7 @@ public class BadBookService {
 
 #### `GoodBookService.java` - リファクタリング後
 
-```java
-package com.example.week4.day1.service;
-
-import com.example.week4.day1.dto.BookRequest;
-import com.example.week4.day1.dto.BookResponse;
-import com.example.week4.day1.entity.Book;
-import com.example.week4.day1.exception.BookNotFoundException;
-import com.example.week4.day1.repository.BookRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-@Service
-@RequiredArgsConstructor
-public class GoodBookService {
-    
-    private final BookRepository bookRepository;
-    
-    // 改善1: メソッド名を明確に、Stream APIを使用
-    public List<BookResponse> getAllBooks() {
-        return bookRepository.findAll()
-                .stream()
-                .map(this::toResponse)
-                .collect(Collectors.toList());
-    }
-    
-    // 改善2: カスタム例外を使用、わかりやすいエラーメッセージ
-    public BookResponse getBookById(Long id) {
-        Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new BookNotFoundException(
-                    "Book not found with id: " + id));
-        return toResponse(book);
-    }
-    
-    // 改善3: ヘルパーメソッドで重複を削減
-    public BookResponse createBook(BookRequest request) {
-        Book book = toEntity(request);
-        Book savedBook = bookRepository.save(book);
-        return toResponse(savedBook);
-    }
-    
-    // 改善4: Stream APIでフィルタリング、責務を分離
-    public List<BookResponse> searchBooks(String author, Integer yearFrom) {
-        return bookRepository.findAll()
-                .stream()
-                .filter(book -> matchesAuthor(book, author))
-                .filter(book -> matchesYear(book, yearFrom))
-                .map(this::toResponse)
-                .collect(Collectors.toList());
-    }
-    
-    // ヘルパーメソッド: 条件チェックを分離
-    private boolean matchesAuthor(Book book, String author) {
-        return author == null || book.getAuthor().contains(author);
-    }
-    
-    private boolean matchesYear(Book book, Integer yearFrom) {
-        return yearFrom == null || book.getPublishedYear() >= yearFrom;
-    }
-    
-    // ヘルパーメソッド: Entity → DTO変換
-    private BookResponse toResponse(Book book) {
-        return new BookResponse(
-            book.getId(),
-            book.getTitle(),
-            book.getAuthor(),
-            book.getIsbn(),
-            book.getPublishedYear(),
-            book.getStockQuantity()
-        );
-    }
-    
-    // ヘルパーメソッド: DTO → Entity変換
-    private Book toEntity(BookRequest request) {
-        Book book = new Book();
-        book.setTitle(request.getTitle());
-        book.setAuthor(request.getAuthor());
-        book.setIsbn(request.getIsbn());
-        book.setPublishedYear(request.getPublishedYear());
-        book.setStockQuantity(request.getStockQuantity());
-        return book;
-    }
-}
-```
-
-#### カスタム例外クラス
-
-```java
-package com.example.week4.day1.exception;
-
-public class BookNotFoundException extends RuntimeException {
-    public BookNotFoundException(String message) {
-        super(message);
-    }
-}
-```
+（解答例は実装後に確認してください）
 
 ## 課題: 自分でリファクタリングしてみよう
 
@@ -256,26 +159,92 @@ public class BookNotFoundException extends RuntimeException {
 
 `BadBookService.java` を読んで、以下の問題点を見つけてください：
 
-1. ❌ **問題点A**: どこが読みにくいか？
-2. ❌ **問題点B**: どこが重複しているか？
-3. ❌ **問題点C**: どこが複雑すぎるか？
+1. ❌ **問題点A**: どこが読みにくいか？（命名、構造）
+2. ❌ **問題点B**: どこが重複しているか？（変換処理など）
+3. ❌ **問題点C**: どこが複雑すぎるか？（ネスト、条件分岐）
 
-### ステップ2: 改善計画を立てる
+### ステップ2: 実装のヒントと手順
 
-各問題点に対して、どう改善するかを考えます：
+以下の手順で `GoodBookService.java` を実装していきましょう。
 
-- **Stream APIに置き換える** - for文を削除
-- **ヘルパーメソッドを抽出** - 重複を削減
-- **カスタム例外を作成** - エラーハンドリングを改善
-- **メソッド名を改善** - 意図を明確にする
+#### 1. ヘルパーメソッドから始める
+まずは重複している変換処理を共通化します。
 
-### ステップ3: 実装する
+```java
+// TODO 6: Entity → DTO変換
+private BookResponse toResponse(Book book) {
+    return new BookResponse(
+        book.getId(),
+        book.getTitle(),
+        // ... 他のフィールド
+    );
+}
 
-`GoodBookService.java` を作成して、改善版を実装してください。
+// TODO 7: DTO → Entity変換
+private Book toEntity(BookRequest request) {
+    Book book = new Book();
+    book.setTitle(request.getTitle());
+    // ... 他のフィールド
+    return book;
+}
+```
 
-### ステップ4: 比較する
+#### 2. 全件取得メソッドの改善
+for文をStream APIに置き換えます。
 
-Before と After を並べて、何が改善されたかを確認してください。
+```java
+// TODO 1: getAllBooks()
+public List<BookResponse> getAllBooks() {
+    return bookRepository.findAll()
+            .stream()
+            .map(this::toResponse) // ヘルパーメソッドを使用
+            .collect(Collectors.toList());
+}
+```
+
+#### 3. 1件取得メソッドの改善
+カスタム例外を使ってエラーハンドリングを改善します。
+
+```java
+// TODO 2: getBookById()
+public BookResponse getBookById(Long id) {
+    Book book = bookRepository.findById(id)
+            .orElseThrow(() -> new BookNotFoundException("Book not found with id: " + id));
+    return toResponse(book);
+}
+```
+
+#### 4. 作成メソッドの改善
+ヘルパーメソッドを使ってシンプルにします。
+
+```java
+// TODO 3: createBook()
+public BookResponse createBook(BookRequest request) {
+    Book book = toEntity(request);
+    Book savedBook = bookRepository.save(book);
+    return toResponse(savedBook);
+}
+```
+
+#### 5. 検索メソッドの改善
+複雑な条件分岐を分離し、Stream APIでフィルタリングします。
+
+```java
+// TODO 5: 条件チェック用メソッド
+private boolean matchesAuthor(Book book, String author) {
+    return author == null || book.getAuthor().contains(author);
+}
+
+// TODO 4: searchBooks()
+public List<BookResponse> searchBooks(String author, Integer yearFrom) {
+    return bookRepository.findAll()
+            .stream()
+            .filter(book -> matchesAuthor(book, author))
+            .filter(book -> matchesYear(book, yearFrom))
+            .map(this::toResponse)
+            .collect(Collectors.toList());
+}
+```
 
 ## リファクタリングのチェックリスト
 
@@ -301,39 +270,21 @@ Before と After を並べて、何が改善されたかを確認してくださ
 - [ ] カスタム例外クラスを使用
 - [ ] わかりやすいエラーメッセージ
 
-## 学習のポイント
-
-### リファクタリングの原則
-
-#### 1. DRY原則（Don't Repeat Yourself）
-同じコードを2回書かない。ヘルパーメソッドで共通化。
-
-#### 2. SOLID原則のS（Single Responsibility）
-1つのメソッドは1つの責務だけを持つ。
-
-#### 3. 可読性優先
-「動く」だけでなく「読みやすい」コードを書く。
-
-### リファクタリングの手順
-
-1. **テストを書く** - リファクタリング前に動作を確認
-2. **小さく変更** - 一度に大きく変えない
-3. **テストを実行** - 変更後も動作が変わっていないことを確認
-4. **繰り返す** - 少しずつ改善を重ねる
-
 ## 実行方法
 
-Week3のプロジェクトを使って、新しいパッケージで実装してみましょう：
+Week4のプロジェクトを使って実装します：
 
 ```
-week3-interface-first/
-└── src/main/java/com/example/week3/
-    └── day4/  ← 新規作成
-        ├── service/
-        │   ├── BadBookService.java    ← Before版
-        │   └── GoodBookService.java   ← After版（課題）
-        └── exception/
-            └── BookNotFoundException.java
+exercises/
+└── week4-refactoring-practice/
+    ├── pom.xml
+    └── src/main/java/com/example/week4/
+        ├── bad/
+        │   └── service/
+        │       └── BadBookService.java    ← Before版
+        └── good/
+            └── service/
+                └── GoodBookService.java   ← After版（課題）
 ```
 
 ## 完了条件
